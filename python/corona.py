@@ -5,10 +5,7 @@ import schedule
 import time
 import telegram
 
-telegram_token = '1136527964:AAHM6ERIl1hetRflIB1KrQuQC4pwIPUyYkw'
-telegram_id = '1220354777'
-
-db = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd = 'Chiggawithagun1.', db='weather', charset='utf8')
+db = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd = '', db='weather', charset='utf8')
 
 cursor = db.cursor()
 
@@ -43,16 +40,15 @@ def corona():
 
 
 		y = 'INSERT INTO `weather`.`CoronaVirus_Data` (`country`,`total_cases`,`new_cases`,`total_deaths`,`new_deaths`) VALUES ("'+nation+'","'+total+'","'+new+'","'+death+'","'+new_death+'");'
-		cursor.execute(y)
-		db.commit()
+		# cursor.execute(y)
+		# db.commit()
 
 		s += str(i+1)+" Country: "+nation+"\n Total Cases: "+total+ "\n New Cases: "+new+"\n Total Death: "+death+"\n New Death: "+new_death+"\n"
-		return s
 
 	bot = telegram.Bot(token = telegram_token)
 	bot.sendMessage(telegram_id, s)
 
-schedule.every().day.at("22:15").do(corona)
+schedule.every().day.at("20:15").do(corona)
 
 
 while True:
